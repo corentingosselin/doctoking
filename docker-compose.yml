@@ -29,10 +29,6 @@ services:
     restart: always
     environment:
       MYSQL_DATABASE: 'doctoking'
-      MYSQL_USER: 'admin'
-      # You can use whatever password you like
-      MYSQL_PASSWORD: 'root'
-      # Password for root access
       MYSQL_ROOT_PASSWORD: 'root'
     expose:
       # Opens port 3306 on the container
