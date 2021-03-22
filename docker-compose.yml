@@ -1,0 +1,46 @@
+version: '3.8'
+services:
+  server:
+    container_name: api-container
+    restart: always
+    build: ./server
+    ports: 
+      - "5000:5000"
+    volumes:
+      - './server:/app'
+    depends_on: 
+      - mysql
+  client:
+    container_name: client-container
+    restart: always
+    build: ./client
+    volumes:
+      - './client:/app'
+      - '/app/node_modules'
+    ports: 
+      - "3000:3000"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+  mysql:
+    container_name: mysql-container
+    image: mysql
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'doctoking'
+      MYSQL_USER: 'admin'
+      # You can use whatever password you like
+      MYSQL_PASSWORD: 'root'
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: 'root'
+    expose:
+      # Opens port 3306 on the container
+      - '3306'
+      # Where our data will be persisted
+    volumes:
+      - docto-db:/var/lib/mysql
+# Names our volume
+volumes:
+  docto-db:
+
