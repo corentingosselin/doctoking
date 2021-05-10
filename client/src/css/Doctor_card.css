@@ -1,0 +1,43 @@
+.doctor{
+    display: flex;
+    justify-content: center;
+    color: #001841;
+    font-size: 40px;
+}
+
+.me{
+    display: flex;
+    justify-content: center;
+}
+
+.buttonMe {
+    background-color: white;
+    color: #001841;
+    border: 2px solid #001841;
+    width: 100px;
+    height: 100px;
+    font-size: 15px;
+    margin-top: 5%;
+}
+
+.buttonMe:hover {
+    background-color: #001841;
+    color: white;
+}
+.doctor1{
+    display: flex;
+    justify-content: center;
+}
+
+.doctorinfo{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px 150px 20px 25px;
+    margin: 5px 5px 5px 5px;
+    font-size: 20px;
+    color: #001841;
+}
+.datedoctor{
+    font-size: 50px;
+}

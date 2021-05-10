@@ -1,0 +1,30 @@
+.titlepa{
+    display: flex;
+    justify-content: space-between;
+    background-color: #001841;
+    color: white;
+}
+.resultpa{
+    display: flex;
+    justify-content: space-between;
+}
+.pagepa{
+    margin: 5% 1% 5% 1%;
+}
+.buttonresult{
+    margin-right: 1%;
+    background-color: white;
+    color: black;
+    border-radius: 50px;
+}
+.buttonresult:hover{
+    margin-right: 1%;
+    background-color: #309630;
+    color: white;
+
+}
+.resultpa1{
+    background-color: #254d9b;
+    color: white;
+}
+

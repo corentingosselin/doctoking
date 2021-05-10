@@ -1,0 +1,39 @@
+.slogan{
+    display: flex;
+    justify-content: center;
+    font-size: 50px;
+    color: #ffd752;
+    margin-top: 2%;
+
+}
+.slogan2{
+    background-color: #001841;
+    padding-left: 20%;
+    padding-right: 20%;
+}
+.profil{
+    display: flex;
+    justify-content: center;
+    font-size: 40px;
+    color: #001841;
+}
+.button2 {
+    background-color: white;
+    color: #001841;
+    border: 2px solid #001841;
+    width: 200px;
+    height: 200px;
+    font-size: 25px;
+}
+
+.button2:hover {
+    background-color: #001841;
+    color: white;
+}
+.buttons{
+    display: flex;
+    justify-content: space-between;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 10%;
+}
