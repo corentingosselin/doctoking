@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('specialities', {
+    await queryInterface.createTable('Synonyms', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -10,11 +10,7 @@ module.exports = {
       },
       titleId: {
         allowNull: false,
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'title',
-          key:'id'
-        }
+        type: Sequelize.INTEGER
       },
       synonym: {
         allowNull: false,
@@ -31,6 +27,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('specialities');
+    await queryInterface.dropTable('Synonyms');
   }
 };

@@ -36,6 +36,11 @@ services:
       # Where our data will be persisted
     volumes:
       - docto-db:/var/lib/mysql
+  mailhog:
+    image: mailhog/mailhog
+    ports: 
+      - 1025:1025 # smtp server
+      - 8025:8025 # web ui
 # Names our volume
 volumes:
   docto-db:

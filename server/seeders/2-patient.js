@@ -13,10 +13,11 @@ module.exports = {
     /**
      * Add seed commands here.
     */
-
     let data = [];
-    let amount = 50;
+    let amount = 100;
     let date = new Date();
+    const genders = [ 'female' , 'male' ];
+
     while (amount--) {
 
       data.push({
@@ -24,19 +25,36 @@ module.exports = {
         role: 'patient',
         first_name: faker.name.firstName(),
         last_name: faker.name.lastName(),
-        gender: faker.name.gender(),
+        gender: faker.random.arrayElement(genders),
         city: faker.address.city(),
         phone: faker.phone.phoneNumber(),
         address: faker.address.streetAddress(),
-        password: await hash(faker.internet.password()),
+        password: await hash('password'),
         createdAt: date,
         updatedAt: date
       });
     }
-    await queryInterface.bulkInsert('users', data, {});
+
+    //create 1 know patient
+    data.push({
+      email: 'patient@gmail.com',
+      role: 'patient',
+      first_name: 'Georges',
+      last_name: 'Girondor',
+      gender: 'male',
+      city: 'Paris',
+      phone: '0610998767',
+      address: '6 avenue des Champs Elysee',
+      password: await hash('password'),
+      createdAt: date,
+      updatedAt: date
+    });
+
+    await queryInterface.bulkInsert('Users', data, {});
   },
 
+
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('users', null, {});
+    await queryInterface.bulkDelete('Users', null, {});
   }
 };
