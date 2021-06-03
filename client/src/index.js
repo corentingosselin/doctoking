@@ -1,16 +1,19 @@
+import axios from 'axios';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './css/index.css';
+import { Provider } from 'react-redux';
+import store from 'redux/store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Authentication from './pages/Subscribe';
-import {BrowserRouter} from 'react-router-dom';
+
+axios.defaults.baseURL = "http://localhost:5000/api";
+
 
 ReactDOM.render(
   <React.StrictMode>
-      <BrowserRouter>
-            <App />
-      </BrowserRouter>
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

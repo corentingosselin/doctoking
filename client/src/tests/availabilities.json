@@ -1,0 +1,740 @@
+[
+    {
+        "id": 3251,
+        "slot": 0,
+        "Booking": [],
+        "Availability": {
+            "day": 0,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "08:00:00"
+    },
+    {
+        "id": 3252,
+        "slot": 1,
+        "Booking": [],
+        "Availability": {
+            "day": 0,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "08:30:00"
+    },
+    {
+        "id": 3253,
+        "slot": 2,
+        "Booking": [],
+        "Availability": {
+            "day": 0,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "09:00:00"
+    },
+    {
+        "id": 3254,
+        "slot": 3,
+        "Booking": [],
+        "Availability": {
+            "day": 0,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "09:30:00"
+    },
+    {
+        "id": 3255,
+        "slot": 4,
+        "Booking": [],
+        "Availability": {
+            "day": 0,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "10:00:00"
+    },
+    {
+        "id": 3256,
+        "slot": 5,
+        "Booking": [],
+        "Availability": {
+            "day": 0,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "10:30:00"
+    },
+    {
+        "id": 3257,
+        "slot": 6,
+        "Booking": [],
+        "Availability": {
+            "day": 0,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "11:00:00"
+    },
+    {
+        "id": 3258,
+        "slot": 7,
+        "Booking": [],
+        "Availability": {
+            "day": 0,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "11:30:00"
+    },
+    {
+        "id": 3259,
+        "slot": 0,
+        "Booking": [],
+        "Availability": {
+            "day": 0,
+            "time_start": "13:30:00",
+            "time_end": "16:00:00"
+        },
+        "period": "13:30:00"
+    },
+    {
+        "id": 3260,
+        "slot": 1,
+        "Booking": [
+            {
+                "start": "2021-12-20"
+            }
+        ],
+        "Availability": {
+            "day": 0,
+            "time_start": "13:30:00",
+            "time_end": "16:00:00"
+        },
+        "period": "14:00:00"
+    },
+    {
+        "id": 3261,
+        "slot": 2,
+        "Booking": [],
+        "Availability": {
+            "day": 0,
+            "time_start": "13:30:00",
+            "time_end": "16:00:00"
+        },
+        "period": "14:30:00"
+    },
+    {
+        "id": 3262,
+        "slot": 3,
+        "Booking": [],
+        "Availability": {
+            "day": 0,
+            "time_start": "13:30:00",
+            "time_end": "16:00:00"
+        },
+        "period": "15:00:00"
+    },
+    {
+        "id": 3263,
+        "slot": 4,
+        "Booking": [],
+        "Availability": {
+            "day": 0,
+            "time_start": "13:30:00",
+            "time_end": "16:00:00"
+        },
+        "period": "15:30:00"
+    },
+    {
+        "id": 3264,
+        "slot": 0,
+        "Booking": [],
+        "Availability": {
+            "day": 1,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "08:00:00"
+    },
+    {
+        "id": 3265,
+        "slot": 1,
+        "Booking": [
+            {
+                "start": "2022-02-15"
+            },
+            {
+                "start": "2021-5-18"
+            }
+        ],
+        "Availability": {
+            "day": 1,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "08:30:00"
+    },
+    {
+        "id": 3266,
+        "slot": 2,
+        "Booking": [],
+        "Availability": {
+            "day": 1,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "09:00:00"
+    },
+    {
+        "id": 3267,
+        "slot": 3,
+        "Booking": [],
+        "Availability": {
+            "day": 1,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "09:30:00"
+    },
+    {
+        "id": 3268,
+        "slot": 4,
+        "Booking": [],
+        "Availability": {
+            "day": 1,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "10:00:00"
+    },
+    {
+        "id": 3269,
+        "slot": 5,
+        "Booking": [],
+        "Availability": {
+            "day": 1,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "10:30:00"
+    },
+    {
+        "id": 3270,
+        "slot": 6,
+        "Booking": [],
+        "Availability": {
+            "day": 1,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "11:00:00"
+    },
+    {
+        "id": 3271,
+        "slot": 7,
+        "Booking": [],
+        "Availability": {
+            "day": 1,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "11:30:00"
+    },
+    {
+        "id": 3272,
+        "slot": 0,
+        "Booking": [],
+        "Availability": {
+            "day": 1,
+            "time_start": "13:30:00",
+            "time_end": "16:00:00"
+        },
+        "period": "13:30:00"
+    },
+    {
+        "id": 3273,
+        "slot": 1,
+        "Booking": [],
+        "Availability": {
+            "day": 1,
+            "time_start": "13:30:00",
+            "time_end": "16:00:00"
+        },
+        "period": "14:00:00"
+    },
+    {
+        "id": 3274,
+        "slot": 2,
+        "Booking": [],
+        "Availability": {
+            "day": 1,
+            "time_start": "13:30:00",
+            "time_end": "16:00:00"
+        },
+        "period": "14:30:00"
+    },
+    {
+        "id": 3275,
+        "slot": 3,
+        "Booking": [],
+        "Availability": {
+            "day": 1,
+            "time_start": "13:30:00",
+            "time_end": "16:00:00"
+        },
+        "period": "15:00:00"
+    },
+    {
+        "id": 3276,
+        "slot": 4,
+        "Booking": [],
+        "Availability": {
+            "day": 1,
+            "time_start": "13:30:00",
+            "time_end": "16:00:00"
+        },
+        "period": "15:30:00"
+    },
+    {
+        "id": 3277,
+        "slot": 0,
+        "Booking": [],
+        "Availability": {
+            "day": 2,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "08:00:00"
+    },
+    {
+        "id": 3278,
+        "slot": 1,
+        "Booking": [
+            {
+                "start": "2021-05-12"
+            }
+        ],
+        "Availability": {
+            "day": 2,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "08:30:00"
+    },
+    {
+        "id": 3279,
+        "slot": 2,
+        "Booking": [],
+        "Availability": {
+            "day": 2,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "09:00:00"
+    },
+    {
+        "id": 3280,
+        "slot": 3,
+        "Booking": [],
+        "Availability": {
+            "day": 2,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "09:30:00"
+    },
+    {
+        "id": 3281,
+        "slot": 4,
+        "Booking": [],
+        "Availability": {
+            "day": 2,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "10:00:00"
+    },
+    {
+        "id": 3282,
+        "slot": 5,
+        "Booking": [],
+        "Availability": {
+            "day": 2,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "10:30:00"
+    },
+    {
+        "id": 3283,
+        "slot": 6,
+        "Booking": [],
+        "Availability": {
+            "day": 2,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "11:00:00"
+    },
+    {
+        "id": 3284,
+        "slot": 7,
+        "Booking": [],
+        "Availability": {
+            "day": 2,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "11:30:00"
+    },
+    {
+        "id": 3285,
+        "slot": 0,
+        "Booking": [],
+        "Availability": {
+            "day": 2,
+            "time_start": "13:30:00",
+            "time_end": "16:00:00"
+        },
+        "period": "13:30:00"
+    },
+    {
+        "id": 3286,
+        "slot": 1,
+        "Booking": [
+            {
+                "start": "2021-07-14"
+            }
+        ],
+        "Availability": {
+            "day": 2,
+            "time_start": "13:30:00",
+            "time_end": "16:00:00"
+        },
+        "period": "14:00:00"
+    },
+    {
+        "id": 3287,
+        "slot": 2,
+        "Booking": [
+            {
+                "start": "2022-03-30"
+            }
+        ],
+        "Availability": {
+            "day": 2,
+            "time_start": "13:30:00",
+            "time_end": "16:00:00"
+        },
+        "period": "14:30:00"
+    },
+    {
+        "id": 3288,
+        "slot": 3,
+        "Booking": [],
+        "Availability": {
+            "day": 2,
+            "time_start": "13:30:00",
+            "time_end": "16:00:00"
+        },
+        "period": "15:00:00"
+    },
+    {
+        "id": 3289,
+        "slot": 4,
+        "Booking": [],
+        "Availability": {
+            "day": 2,
+            "time_start": "13:30:00",
+            "time_end": "16:00:00"
+        },
+        "period": "15:30:00"
+    },
+    {
+        "id": 3290,
+        "slot": 0,
+        "Booking": [],
+        "Availability": {
+            "day": 3,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "08:00:00"
+    },
+    {
+        "id": 3291,
+        "slot": 1,
+        "Booking": [],
+        "Availability": {
+            "day": 3,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "08:30:00"
+    },
+    {
+        "id": 3292,
+        "slot": 2,
+        "Booking": [],
+        "Availability": {
+            "day": 3,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "09:00:00"
+    },
+    {
+        "id": 3293,
+        "slot": 3,
+        "Booking": [],
+        "Availability": {
+            "day": 3,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "09:30:00"
+    },
+    {
+        "id": 3294,
+        "slot": 4,
+        "Booking": [],
+        "Availability": {
+            "day": 3,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "10:00:00"
+    },
+    {
+        "id": 3295,
+        "slot": 5,
+        "Booking": [],
+        "Availability": {
+            "day": 3,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "10:30:00"
+    },
+    {
+        "id": 3296,
+        "slot": 6,
+        "Booking": [],
+        "Availability": {
+            "day": 3,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "11:00:00"
+    },
+    {
+        "id": 3297,
+        "slot": 7,
+        "Booking": [],
+        "Availability": {
+            "day": 3,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "11:30:00"
+    },
+    {
+        "id": 3298,
+        "slot": 0,
+        "Booking": [],
+        "Availability": {
+            "day": 3,
+            "time_start": "13:30:00",
+            "time_end": "16:00:00"
+        },
+        "period": "13:30:00"
+    },
+    {
+        "id": 3299,
+        "slot": 1,
+        "Booking": [],
+        "Availability": {
+            "day": 3,
+            "time_start": "13:30:00",
+            "time_end": "16:00:00"
+        },
+        "period": "14:00:00"
+    },
+    {
+        "id": 3300,
+        "slot": 2,
+        "Booking": [],
+        "Availability": {
+            "day": 3,
+            "time_start": "13:30:00",
+            "time_end": "16:00:00"
+        },
+        "period": "14:30:00"
+    },
+    {
+        "id": 3301,
+        "slot": 3,
+        "Booking": [],
+        "Availability": {
+            "day": 3,
+            "time_start": "13:30:00",
+            "time_end": "16:00:00"
+        },
+        "period": "15:00:00"
+    },
+    {
+        "id": 3302,
+        "slot": 4,
+        "Booking": [],
+        "Availability": {
+            "day": 3,
+            "time_start": "13:30:00",
+            "time_end": "16:00:00"
+        },
+        "period": "15:30:00"
+    },
+    {
+        "id": 3303,
+        "slot": 0,
+        "Booking": [],
+        "Availability": {
+            "day": 4,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "08:00:00"
+    },
+    {
+        "id": 3304,
+        "slot": 1,
+        "Booking": [],
+        "Availability": {
+            "day": 4,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "08:30:00"
+    },
+    {
+        "id": 3305,
+        "slot": 2,
+        "Booking": [],
+        "Availability": {
+            "day": 4,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "09:00:00"
+    },
+    {
+        "id": 3306,
+        "slot": 3,
+        "Booking": [],
+        "Availability": {
+            "day": 4,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "09:30:00"
+    },
+    {
+        "id": 3307,
+        "slot": 4,
+        "Booking": [],
+        "Availability": {
+            "day": 4,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "10:00:00"
+    },
+    {
+        "id": 3308,
+        "slot": 5,
+        "Booking": [],
+        "Availability": {
+            "day": 4,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "10:30:00"
+    },
+    {
+        "id": 3309,
+        "slot": 6,
+        "Booking": [],
+        "Availability": {
+            "day": 4,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "11:00:00"
+    },
+    {
+        "id": 3310,
+        "slot": 7,
+        "Booking": [],
+        "Availability": {
+            "day": 4,
+            "time_start": "08:00:00",
+            "time_end": "12:00:00"
+        },
+        "period": "11:30:00"
+    },
+    {
+        "id": 3311,
+        "slot": 0,
+        "Booking": [],
+        "Availability": {
+            "day": 4,
+            "time_start": "13:30:00",
+            "time_end": "16:00:00"
+        },
+        "period": "13:30:00"
+    },
+    {
+        "id": 3312,
+        "slot": 1,
+        "Booking": [],
+        "Availability": {
+            "day": 4,
+            "time_start": "13:30:00",
+            "time_end": "16:00:00"
+        },
+        "period": "14:00:00"
+    },
+    {
+        "id": 3313,
+        "slot": 2,
+        "Booking": [],
+        "Availability": {
+            "day": 4,
+            "time_start": "13:30:00",
+            "time_end": "16:00:00"
+        },
+        "period": "14:30:00"
+    },
+    {
+        "id": 3314,
+        "slot": 3,
+        "Booking": [],
+        "Availability": {
+            "day": 4,
+            "time_start": "13:30:00",
+            "time_end": "16:00:00"
+        },
+        "period": "15:00:00"
+    },
+    {
+        "id": 3315,
+        "slot": 4,
+        "Booking": [],
+        "Availability": {
+            "day": 4,
+            "time_start": "13:30:00",
+            "time_end": "16:00:00"
+        },
+        "period": "15:30:00"
+    }
+]

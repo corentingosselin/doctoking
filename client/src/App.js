@@ -1,100 +1,54 @@
-import './css/App.css';
-import * as React from "react";
-import { ReactComponent as Logo } from './logo_DoctoKing.svg';
-import { Switch, Route, Link } from 'react-router-dom'
-import Authentication from './pages/Authentication';
-import Nav from "./components/nav";
-import Subscribe from "./pages/Subscribe";
-import About from "./pages/About";
-import Search from "./pages/Search";
-import Appointment from "./pages/Appointment";
-import Admin from "./pages/Admin";
-import Home from "./pages/Home";
-import Manage from "./pages/Manage";
-import Create_account_med from "./pages/Create_account_med";
-import Manage_account from "./pages/Manage_account";
-import Search_medic from "./components/Search_medic";
-import Search_admin from "./components/Search_admin";
-import Search_pat from "./components/Search_pat";
-import Search_result from "./pages/Search_result";
-import My_appointment from "./pages/My_appointment";
-import Me from "./pages/Me";
-import Result_patient from "./pages/Result_patient";
-import Result_med from "./pages/Result_med";
-import Create_account_pat from "./pages/Create_account_pat";
-import Doctor_card from "./pages/Doctor_card";
-function App() {
+import React from 'react';
+import Navbar from './components/global/Navbar';
+import GlobalStyle from './css/GlobalStyle';
+import LoginPage from 'pages/LoginPage';
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect
+} from "react-router-dom";
+
+import HomePage from 'pages/HomePage';
+import SearchDoctorPage from 'pages/SearchDoctorPage';
+import RegisterPage from 'pages/RegisterPage';
+import { connect } from 'react-redux';
+
+function App(props) {
+  const { auth } = props;
+
   return (
-<div>
-      <Nav />
-      <Switch>
-          <div>
-              <Route path='/about'>
-                  <About />
-              </Route>
-              <Route path='/subscribe'>
-                  <Subscribe />
-              </Route>
-              <Route path='/authentication'>
-                  <Authentication />
-              </Route>
-              <Route path='/search'>
-                  <Search />
-              </Route>
-              <Route path='/appointment'>
-                    <Appointment />
-              </Route>
-              <Route path='/admin'>
-                  <Admin />
-              </Route>
-              <Route path='/home'>
-                  <Home />
-              </Route>
-              <Route path='/manage'>
-                  <Manage />
-              </Route>
-              <Route path='/create_account_med'>
-                  <Create_account_med />
-              </Route>
-              <Route path='/create_account_pat'>
-                  <Create_account_pat />
-              </Route>
-              <Route path='/manage_account'>
-                  <Manage_account/>
-              </Route>
-              <Route path='/manage_account/search_medic'>
-                  <Search_medic/>
-              </Route>
-              <Route path='/manage_account/search_pat'>
-                  <Search_pat/>
-              </Route>
-              <Route path='/manage_account/search_admin'>
-                  <Search_admin/>
-              </Route>
-              <Route path='/search_result'>
-                  <Search_result/>
-              </Route>
-              <Route path='/my_appointment'>
-                  <My_appointment/>
-              </Route>
-              <Route path='/me'>
-                  <Me/>
-              </Route>
-              <Route path='/result_patient'>
-                  <Result_patient/>
-              </Route>
-              <Route path='/result_med'>
-                  <Result_med/>
-              </Route>
-              <Route path='/doctor_card'>
-                  <Doctor_card/>
-              </Route>
+    <Router>
+      <div className="App">
+        <GlobalStyle />
+        <Navbar />
+        <Switch>
+          <Route path="/login">
+            {auth.isLoggedIn ? <Redirect to="/" /> : <LoginPage />}
+          </Route>
 
-          </div>
-      </Switch>
-</div>
+          <Route path="/register">
+            {auth.isLoggedIn ? <Redirect to="/" /> : <RegisterPage />}
+          </Route>
+
+          <Route path="/search">
+            {auth.isLoggedIn ? <SearchDoctorPage /> : <Redirect to="/login" />}
+
+          </Route>
+          <Route exact path="/" component={HomePage} />
+        </Switch>
+      </div>
+    </Router>
   );
-
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    auth: state.authState
+  };
+};
+
+
+export default connect(mapStateToProps)(App);
