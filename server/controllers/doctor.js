@@ -35,7 +35,7 @@ module.exports = {
                 },
             ],
         }).then((slots) => {
-            
+
             //auto time calculus
             for (var i = 0; i < slots.length; i++) {
                 const date = new Date("1970-01-01 " + slots[i].Availability.time_start);
@@ -46,7 +46,7 @@ module.exports = {
                 let minutes = totalMinutes % 60;
                 if (hours < 10) { hours = "0" + hours; }
                 if (minutes < 10) { minutes = "0" + minutes; }
-                const time =  hours + ':' + minutes + ':00';
+                const time = hours + ':' + minutes + ':00';
                 slots[i].setDataValue('period', time);
             }
             res.status(200).send(slots);
@@ -60,9 +60,13 @@ module.exports = {
     getDoctors(req, res) {
         const itemPerPage = 10;
         const offset = itemPerPage * (parseInt(req.params.page) - 1);
+        let whereStatement = {};
+        if (req.query.title)
+            whereStatement.name = req.query.title;
+
         return User.findAll(
             {
-                attributes: ['id', 'first_name', 'last_name', 'city', 'phone'],
+                attributes: ['id', 'first_name', 'last_name', 'city', 'phone','address','gender'],
                 offset: offset,
                 limit: itemPerPage,
                 include: [
@@ -71,18 +75,12 @@ module.exports = {
                         attributes: ['id', 'name'],
                         model: models.Title,
                         through: { attributes: [] },
-                        where: {
-                            [Op.or]: [
-                                { name: req.body.title },
-                                { '$user.last_name$': req.body.title }
-                            ]
-
-                        }
+                        where: whereStatement
                     }
                 ],
                 where: {
                     role: 'doctor',
-                    city: req.body.city,
+                    city: req.query.city,
                 },
             }).then((doctors) => res.status(200).send(doctors))
             .catch((error) => {

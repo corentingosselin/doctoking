@@ -1,20 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
-import {useHistory} from 'react-router';
+import { useHistory } from 'react-router';
 import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { RegisterAuthAction } from 'redux/actions/AuthActions';
+import { Link } from 'react-router-dom';
 
 
 const RegisterPage = (props) => {
 
   const { user, register } = props;
   const [userState, setUserState] = useState({
-      gender: "male"
+    gender: "male"
   });
   const history = useHistory();
-  const [errorHandler,setErrorHandler] = useState({
-    hasError: false, 
+  const [errorHandler, setErrorHandler] = useState({
+    hasError: false,
     message: ''
   });
 
@@ -124,6 +125,10 @@ const RegisterPage = (props) => {
             errorHandler.hasError &&
             <p className="error">{errorHandler.message}</p>
           }
+
+          <Link className="link" id="have-account" to="/login">
+            Je déjà un compte
+          </Link>
           <button onClick={handleRegister}>inscription</button>
 
         </div>
@@ -144,6 +149,13 @@ const Style = styled.div`
       a {
         text-decoration: none;
         color: #000;
+      }
+
+      #have-account {
+        font-size: 12px;
+        text-decoration: underline;
+        color: darkgray;
+        
       }
 
       h1 {

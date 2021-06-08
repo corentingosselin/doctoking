@@ -1,7 +1,7 @@
-const mailer = require('../app');
 const Booking = require('../models').Booking;
 const User = require('../models').User;
 const Slot = require('../models').Slot;
+const nodemailer = require("nodemailer");
 
 const models = require('../models');
 
@@ -10,13 +10,38 @@ const Op = Sequelize.Op;
 const sequelize = require('../models/index').sequelize;
 const days = ['6', '0', '1', '2', '3', '4', '5'];
 
+const transporter = nodemailer.createTransport({
+    host: 'maildev',
+    port: 25,
+    // We add this setting to tell nodemailer the host isn't secure during dev:
+    ignoreTLS: true
+  });
+  
+
 
 module.exports = {
     getBookingById: function (req, res) {
         return res.status(200).send(req.booking);
     },
-    getBookingByPatientId: function (req, res) {
-        return Booking.findAll({
+    async getBookingByPatientId(req, res) {
+
+        const booking = await Slot.findAll({
+            where: {
+                patientId: req.userId
+            },
+            include: [
+                {
+                    as: 'Availability',
+                    model: models.Availability,
+                    required: true,
+                    where: {
+                        doctorId: req.body.doctorId,
+                    }
+                }
+            ]
+        });
+
+        const booking = Booking.findAll({
             where: { patientId: req.userId }
         }).then((bookings) => { res.status(201).send(bookings) })
             .catch((error) => res.status(500).send({ error: 'Please try this later' }));
@@ -33,7 +58,8 @@ module.exports = {
                 where: { patientId: req.params.id }
             })
             .then(async (booking) => {
-                mailer({
+
+                transporter.sendMail({
                     from: '"doctoking 👑" <no-reply@doctoking.com>',
                     to: req.user.email,
                     subject: "Booking cancel confirmation ✔", // Subject line
@@ -53,13 +79,9 @@ module.exports = {
         //a user cannot be patient and doctor 
         if (req.body.patientId === req.body.doctorId) return res.status(405).send(error);
 
-        if (req.user.role === 'doctor') {
-            if (req.userId !== req.body.doctorId) return res.status(405).send(error);
-        } else if (req.user.role === 'patient') {
-            if (req.userId !== req.body.patientId) return res.status(405).send(error);
-        }
+    
 
-        const user = User.findByPk(req.userId);
+        const user = await User.findByPk(req.userId);
         if (!user) return res.status(405).send(error);
 
         if (user.role === 'doctor') {
@@ -73,12 +95,8 @@ module.exports = {
             if (!User.findByPk(req.body.patientId)) return res.status(404).send({ error: 'Patient not found' });
             if (!User.findByPk(req.body.doctorId)) return res.status(404).send({ error: 'Doctor not found' });
         }
-
-
         const bookingDate = new Date(req.body.start);
         const dayId = bookingDate.getDay();
-        const dayIndex = days[dayId];
-
         //change response with Invalid Request Error later
         if (!bookingDate) return res.status(400).send({ error: 'Invalid Date Request' });
         const slotValid = await Slot.findAll({
@@ -92,14 +110,12 @@ module.exports = {
                     required: true,
                     where: {
                         doctorId: req.body.doctorId,
-                        day: dayIndex
                     }
                 }
             ]
         });
         //change response with Invalid Request Error later
         if (slotValid.length <= 0) return res.status(400).send({ error: 'Invalid Slot, not found or does not correspond with the doctor or slot does not correspond with the day' });
-
         const existingBooking = await Booking.findOne({
             where: {
                 slotId: req.body.slotId,
@@ -107,7 +123,9 @@ module.exports = {
             }
         });
         //change response with Invalid Request Error later
-        if (existingBooking) return res.status(400).send({ error: 'Doctor not available for this date and time' });
+        if (existingBooking !== null) {
+            return res.status(400).send({ error: 'Doctor not available for this date and time' });
+        }
 
 
         return Booking
@@ -120,14 +138,18 @@ module.exports = {
             })
             .then(async (booking) => {
                 //send confirmation email     
-                mailer({
+                await transporter.sendMail({
                     from: '"doctoking 👑" <no-reply@doctoking.com>',
                     to: user.email,
                     subject: "Your booking is confirmed ✔", // Subject line
                     text: "Date " + booking.start + " \n lol", // plain text body
                 });
                 res.status(201).send(booking);
-            }).catch((error) => res.status(400).send({ error: 'Invalid Booking Request' }));
+            }).catch((error) => {
+                console.log(error);
+                res.status(400).send({ error: 'Invalid Booking Request' })
+            });
+
 
     },
 };

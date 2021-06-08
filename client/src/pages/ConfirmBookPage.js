@@ -1,25 +1,56 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import CalendarBookingSlot from '../components/CalendarBookingSlot'
+import { ReactComponent as DoctorMale } from '../imgs/doctor_male.svg';
+import { ReactComponent as DoctorFemale } from '../imgs/doctor_female.svg';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
-const ConfirmBookPage = () => {
+const ConfirmBookPage = (props) => {
+
+    const history = useHistory();
+    const auth  = useSelector((state) => state.authState);
+    const doctor = props.location.state.doctor;
+    const book = props.location.state.book;
+    const job = doctor.titles[0].name;
+    const jobUpperCase = job.charAt(0).toUpperCase() + job.slice(1);
+
+    const [body, setBody] = useState(
+        {
+            start: book.date,
+            slotId: book.id,
+            patientId:  auth.user.id,
+            description: '',
+            doctorId: doctor.id
+        });
+
+    const submitHandler = () => {
+        axios.post('/booking', body);
+        history.push({
+            pathname: '/doctor/' + doctor.id,
+            state: { doctor: doctor }
+          });
+    }
+
+
     return (
         <Style>
-
             <div className="head">
                 <h1>Confirmation du rendez-vous</h1>
-                <h2>Lundi 15 mars à 8h30</h2>
+                <h2>{book.day} à {book.time}</h2>
             </div>
 
             <div className="book">
                 <div className="doctor-profile">
-                    <h1 className="title"> Dr. name surname</h1>
-                    <img className="profile-picture" src="https://via.placeholder.com/100"></img>
+                    <h1 className="title"> Dr. {doctor.last_name} {doctor.first_name}</h1>
+                    {doctor.gender == 'female' ?
+                <DoctorFemale className="profile-picture" /> :
+                <DoctorMale className="profile-picture" />}
                     <div className="info">
-                        <a> Médecin généraliste</a>
+                        <a> {jobUpperCase}</a>
                         <div className="coords">
-                            <a id="city"> Ville</a>
-                            <a id="address"> Addresse</a>
+                            <a id="city"> {doctor.city}</a>
+                            <a id="address"> {doctor.address}</a>
                         </div>
 
                     </div>
@@ -28,8 +59,13 @@ const ConfirmBookPage = () => {
                 <div className="reason">
                     <h2 className="title-reason">Indiquez la raison</h2>
                     <div className="center">
-                        <textarea></textarea>
-                        <button className="btn-book">Confirmer le rendez-vous</button>
+                        <textarea onChange={(event) => {
+                        const description = event.target.value;
+                        setBody({ ...body, ...{ description } });
+                    }} >
+
+                        </textarea>
+                        <button className="btn-book" onClick={submitHandler}>Confirmer le rendez-vous</button>
                     </div>
 
                 </div>

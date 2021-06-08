@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { LoginAuthAction, RegisterAuthAction } from 'redux/actions/AuthActions';
+import { LoginAuthAction } from 'redux/actions/AuthActions';
 import styled from 'styled-components';
-
+import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const LoginPage = (props) => {
 
@@ -19,6 +19,7 @@ const LoginPage = (props) => {
   const history = useHistory();
   function handleLogin(e) {
     e.preventDefault();
+    setErrorHandler({ hasError: false, message: "" });
     login(loginState, history, setErrorHandler);
   }
 
@@ -52,6 +53,11 @@ const LoginPage = (props) => {
             errorHandler.hasError &&
             <p className="error">{errorHandler.message}</p>
           }
+
+          <Link className="link" id="no-account" to="/register">
+            Je n'ai pas de compte
+          </Link>
+
           <button className="connection" onClick={handleLogin}>connexion</button>
 
         </div>
@@ -64,6 +70,13 @@ const LoginPage = (props) => {
 
 
 const Style = styled.div`
+
+      #no-account {
+        font-size: 12px;
+        text-decoration: underline;
+        color: darkgray;
+        
+      }
 
       display: flex;
       flex-direction: column;

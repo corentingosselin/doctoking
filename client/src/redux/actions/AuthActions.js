@@ -26,10 +26,9 @@ const RegisterAuthAction = (userState, history, setErrorHandler) => {
 }
 
 
-const LogoutAuthAction = (history) => {
+const LogoutAuthAction = () => {
     return async (dispatch) => {
         dispatch({ type: AuthActionType.LOGOUT_SUCCESS, payload: {} });
-        history.push("/");
     }
 }
 
@@ -43,7 +42,7 @@ const LoginAuthAction = (userState, history, setErrorHandler) => {
         } catch (error) {
             if (error.response) {
                 dispatch({
-                    type: AuthActionType.REGISTER_FAIL,
+                    type: AuthActionType.LOGIN_FAIL,
                     payload: error.response.data.message
                 });
                 setErrorHandler({hasError:true, message: error.response.data.message});

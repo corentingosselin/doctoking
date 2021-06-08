@@ -81,10 +81,8 @@ module.exports = {
         if (!validPass) return res.status(401).json({ 
             'message':invalidCredentials
         });
-
-        const user = existingUser.toJSON();
-        delete user.password;
         const token = jwt.sign({ id: existingUser.id }, process.env.TOKEN_SECRET, { expiresIn: '30m' })
+        const user = existingUser.toJSON();
         user.token = token;
         console.log(user);
         return res.status(200).json({ 
@@ -94,7 +92,7 @@ module.exports = {
             'last_name':user.last_name,
             'phone':user.phone,
             'city':user.city,
-            'address': req.body.address,
+            'address': user.address,
             'id':user.id,
             'token': token
         });

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ProfileCard from '../components/global/ProfileCard'
+import { useDispatch, useSelector } from "react-redux";
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
@@ -8,38 +9,69 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { loadDoctors } from 'redux/actions/DoctorSearchAction';
 library.add(
     faSearch,
 )
 
+
+
 const SearchDoctorPage = () => {
+
+    //FETCH DOCTORS
+    const dispatch = useDispatch();
+    const [textInput, setTextInput] = useState({ title: "", city: "" });
+    const data = useSelector(state => state.doctors) || {};
+
+    const [doctors, setDoctors] = useState([]);
+
+    useEffect(() => {
+        setDoctors(data.doctors);
+    }, [data]);
+
+    const submitSearch = (e) => {
+        e.preventDefault();
+        dispatch(loadDoctors(textInput));
+        setTextInput({ title: "", city: "" });
+    };
+
     return (
         <Style>
 
             <div className="search">
                 <h1>Rechercher votre médecin</h1>
                 <form className="search-bar">
-                    <input className="input" id="search-doctor" placeholder="Nom, prénom médecin">
+                    <input className="input-search" value={textInput.title} type="text" id="search-doctor" placeholder="Profession médecin" onChange={(event) => {
+                        const title = event.target.value;
+                        setTextInput({ ...textInput, ...{ title } });
+                    }} >
                     </input>
-                    <input className="input" id="search-location" placeholder="Ville"></input>
-                    <button>Rechercher</button>
+                    <input className="input-search" value={textInput.city} type="text" id="search-location" placeholder="Ville" onChange={(event) => {
+                        const city = event.target.value;
+                        setTextInput({ ...textInput, ...{ city } });
+                    }} >
+
+                    </input>
+                    <button onClick={submitSearch} type="submit">Rechercher</button>
                 </form>
             </div>
 
-            <div className="results">
+   
 
-                <ProfileCard />
-                <ProfileCard />
-                <ProfileCard />
-                <ProfileCard />
-                <ProfileCard />
-                <ProfileCard />
-                <ProfileCard />
-        
+            {doctors.length ? (
+                <Results>
+                    {doctors.map((doctor) => (
+                        <ProfileCard
+                            doctor={doctor}
+                            key={doctor.id}
+                        />
+                    ))}
+                </Results>
 
+            ) : (
+                ""
+            )}
 
-
-            </div>
         </Style>
 
     )
@@ -63,12 +95,13 @@ const Style = styled.div`
           min-width: 600px;
       }
 
-    .input {
+    .input-search {
         border: none;
         width: 50%;
         height: 30px;
         padding: 30px;
         border: 1px solid;
+        border-radius: 0;
         outline: none;
         border-color: #38b6b2
 
@@ -106,16 +139,16 @@ const Style = styled.div`
             margin: 50px;
         }
       
+`;
 
-      .results {
-          margin-left: 50px;
-          margin-right: 50px;
-          margin-top: 150px;
-          display: flex;
-          flex-wrap: wrap;
-          align-items: center;
-          justify-content: center;
-      }
+const Results = styled.div`
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 150px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
 `;
 
 export default SearchDoctorPage;

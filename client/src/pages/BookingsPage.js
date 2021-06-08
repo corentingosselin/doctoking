@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import BookCard from '../components/global/BookCard'
+import toast, { Toaster } from 'react-hot-toast';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
@@ -8,24 +9,56 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import axios from 'axios';
 library.add(
     faSearch,
-)
+);
 
-const BookingsPage = () => {
+
+const notify = () => toast.success('Here is your toast.');
+
+const BookingsPage = (props) => {
+
+
+    //fetch my bookings
+
+    // <BookCard />
+
+    const [bookings, setBookings] = useState([])
+    useEffect(() => {
+        axios.get(`/patient/bookings/`)
+            .then(response => {
+                setBookings(response.data)
+            })
+    }, [])
+
+    //doctor infos
+    //date et heure
+    // booking id (to cancel)
+
+
     return (
         <Style>
 
 
             <h1>Vos rendez-vous</h1>
 
-
             <div className="results">
 
-                <BookCard />
-                <BookCard />
-                <BookCard />
+                {bookings.length ? (
+                 
+                        {bookings.map((doctor) => (
+                            <ProfileCard
+                                doctor={doctor}
+                                key={doctor.id}
+                            />
+                        ))}
+                   
 
+                ) : (
+                    ""
+                )}
+                <Toaster />
             </div>
         </Style>
 

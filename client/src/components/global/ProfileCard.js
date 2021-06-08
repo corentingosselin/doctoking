@@ -1,17 +1,28 @@
 import * as React from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-
+import { ReactComponent as DoctorMale } from '../../imgs/doctor_male.svg';
+import { ReactComponent as DoctorFemale } from '../../imgs/doctor_female.svg';
 
 const ProfileCard = (props) => {
+    const doctor = props.doctor;
     return (
         <Style>
 
-            <img className="profile-picture" src="https://via.placeholder.com/100"></img>
-            <a className="title"> {props.title || "Dr. name surname"}</a>
-            <a className="card-text"> {props.job || "Médecin généraliste"}</a>
-            <a className="card-text" id="city"> {props.city || "Ville"}</a>
-            <button className="btn-book">Vérifier les disponibilités</button>
+            {doctor.gender == 'female' ?
+                <DoctorFemale className="profile-picture" /> :
+                <DoctorMale className="profile-picture" />}
 
+            <a className="title"> Dr.  {doctor.last_name}  {doctor.first_name}</a>
+            <a className="card-text"> {doctor.titles[0].name || "Médecin généraliste"}</a>
+            <a className="card-text" id="city"> {doctor.city || "Ville"}</a>
+            <Link to={{
+                pathname: `/doctor/${doctor.id}`,
+                state: { doctor: doctor }
+            }}>
+                <button className="btn-book">Vérifier les disponibilités</button>
+            </Link>
         </Style>
     )
 }
@@ -22,9 +33,10 @@ const Style = styled.div`
     height: 280px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
     
     #city {
         padding-top: 10px;

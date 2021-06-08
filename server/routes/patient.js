@@ -13,10 +13,10 @@ const role = require('../middlewares/role');
 router.get('/bookings', auth, role.checkRole(['patient']), bookingController.getBookingByPatientId);
 
 //get doctors
-router.get('/search/:page', auth, role.checkRole(['patient']), doctorController.getDoctors);
+router.get('/search/:page', doctorController.getDoctors);
 
 //get availabilities
-router.get('/availabilities/:doctorId', auth, role.checkRole(['patient']), doctorController.getAvailabilities);
+router.get('/availabilities/:doctorId', doctorController.getAvailabilities);
 
 
 

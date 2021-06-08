@@ -16,7 +16,15 @@ const GlobalStyle = createGlobalStyle`
         font-family: Roboto, sans-serif;
     }
 
+    .link {
+        border: none;
+    }
+
     h1 {
+        color: #38b6b2
+    }
+
+    h2 {
         color: #38b6b2
     }
 
@@ -36,6 +44,10 @@ const GlobalStyle = createGlobalStyle`
         height: 30px;
         color: gray;
         outline: none;
+    }
+
+    button {
+        cursor:pointer;
     }
 
     select {

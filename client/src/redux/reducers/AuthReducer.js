@@ -22,7 +22,7 @@ const getAuthState = () => {
     const auth = localStorage.getItem("auth");
     if(!auth) return authState;
     const authObj = JSON.parse(auth);
-    axios.defaults.headers.common["auth-token"] = authObj.token;
+    axios.defaults.headers.common["auth-token"] = authObj.user.token;
     return authObj;
 }
 
@@ -39,6 +39,7 @@ const authReducer = (state = newAuth, action) => {
             return newAuthState;
         case AuthActionType.LOGOUT_SUCCESS:
             localStorage.removeItem("auth");
+            
             return authState;
         case AuthActionType.LOGIN_SUCCESS:
             const loginAuthState = {

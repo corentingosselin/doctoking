@@ -10,6 +10,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { connect } from 'react-redux';
 import { LogoutAuthAction } from 'redux/actions/AuthActions';
+import { Link } from 'react-router-dom';
 library.add(
     faSearch,
 )
@@ -19,23 +20,26 @@ const Navbar = (props) => {
     const { auth } = props;
     return (
         <NavbarStyle>
-
-            <Logo id="logo" />
+            <Link className="link" to="/">
+                <Logo id="logo" />
+            </Link>
             <ul>
                 <li>
-                    <a href="#">  <FontAwesomeIcon icon={faSearch} size="1x" /> Rechercher un médecin</a>
+                    <Link className="link" id="go-search" to="/search"> <FontAwesomeIcon icon={faSearch} size="1x" /> Rechercher un médecin</Link>
                 </li>
             </ul>
 
             {auth.isLoggedIn ? (
                 <React.Fragment>
-                        <button href="#">Mon compte</button>
+                    <button href="#">Mon compte</button>
                 </React.Fragment>
 
             ) :
                 (
                     <React.Fragment>
-                        <button href="#">Connexion</button>
+                        <Link className="link" to="/login">
+                            <button>connexion</button>
+                        </Link>
                     </React.Fragment>
                 )
             }
@@ -54,13 +58,14 @@ const NavbarStyle = styled.div`
     background: #273036;
     align-items: center;
     padding: 1rem 5rem;
+
     
     #logo {
         width:150px;
         height: auto;
     }
 
-    a {
+    #go-search {
         color: lightgray;
         font-size: 19px;
         text-decoration: none;
@@ -73,13 +78,13 @@ const NavbarStyle = styled.div`
     button {
         background: #38b6b2;
         color: white;
-        padding: 7px;
+        padding: 10px;
         font-weight: bold;
-        width: 160px;
-        height: 50px;
-        border-radius: 8px;
+        padding-left: 15px;
+        padding-right: 15px;
+        border-radius: 5px;
         border: none;
-        font-size: 20px;
+        font-size: 15px;
     }
 
     ul {

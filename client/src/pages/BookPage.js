@@ -1,27 +1,38 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import CalendarBookingSlot from '../components/CalendarBookingSlot'
+import { ReactComponent as DoctorMale } from '../imgs/doctor_male.svg';
+import { ReactComponent as DoctorFemale } from '../imgs/doctor_female.svg';
 
-const BookPage = () => {
+const BookPage = (props) => {
+    console.log(props);
+    const doctor = props.location.state.doctor;
+    const job = doctor.titles[0].name;
+    const jobUpperCase = job.charAt(0).toUpperCase() + job.slice(1);
+
     return (
         <Style>
             <h1 className="book-title">Prise de rendez-vous</h1>
 
             <div className="book">
                 <div className="doctor-profile">
-                    <h1 className="title"> Dr. name surname</h1>
-                    <img className="profile-picture" src="https://via.placeholder.com/100"></img>
+                    <h1 className="title"> Dr. {doctor.last_name}  {doctor.first_name}</h1>
+                    <h2 id="phone">+ {doctor.phone} </h2>
+                    
+            {doctor.gender == 'female' ?
+                <DoctorFemale className="profile" /> :
+                <DoctorMale className="profile" />}
                     <div className="info">
-                        <a> Médecin généraliste</a>
+                        <a id="job"> {jobUpperCase}</a>
                         <div className="coords">
-                            <a id="city"> Ville</a>
-                            <a id="address"> Addresse</a>
+                            <a id="city"> {doctor.city}</a>
+                            <a id="address"> {doctor.address}</a>
                         </div>
 
                     </div>
                 </div>
-
-                <CalendarBookingSlot />
+                <CalendarBookingSlot doctor={doctor} />
             </div>
         </Style>
     )
@@ -32,7 +43,7 @@ const Style = styled.div`
     text-align: center;
 
     .title {
-        margin: 30px;
+        margin: 20px;
         font-weight: normal;
     }
 
@@ -45,11 +56,22 @@ const Style = styled.div`
 
     }
 
+    #job {
+        color: #273036;
+    }
+
+    #phone {
+        padding-bottom: 20px;
+        font-weight: normal;
+        color: #273036;
+    }
+
 
     .coords {
         display:flex;
         flex-direction: column;
         padding-top: 20px;
+        color: #494B4C;
 
     }
 
@@ -58,7 +80,11 @@ const Style = styled.div`
     .doctor-profile {
         display: flex;
         flex-direction: column;
+        align-items: center;
         margin: 100px;
+        width: 300px;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        padding: 20px;
     }
 
     .book-title {
@@ -74,7 +100,8 @@ const Style = styled.div`
 
 
     .profile {
-        margin: 30px;
+        width: 100px;
+        height: 100px;
 
     }
 `;

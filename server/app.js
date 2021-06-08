@@ -77,4 +77,4 @@ transporter.sendMail(mailOptions, (error, info) => {
 });
 };
 
-module.exports = { app, transporter };
+module.exports = { app };
