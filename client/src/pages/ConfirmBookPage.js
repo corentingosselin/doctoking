@@ -26,10 +26,7 @@ const ConfirmBookPage = (props) => {
 
     const submitHandler = () => {
         axios.post('/booking', body);
-        history.push({
-            pathname: '/doctor/' + doctor.id,
-            state: { doctor: doctor }
-          });
+        history.push('/books');
     }
 
 

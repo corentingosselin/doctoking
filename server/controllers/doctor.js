@@ -35,7 +35,6 @@ module.exports = {
                 },
             ],
         }).then((slots) => {
-
             //auto time calculus
             for (var i = 0; i < slots.length; i++) {
                 const date = new Date("1970-01-01 " + slots[i].Availability.time_start);

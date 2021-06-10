@@ -2,24 +2,34 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as DoctorMale } from '../../imgs/doctor_male.svg';
 import { ReactComponent as DoctorFemale } from '../../imgs/doctor_female.svg';
+import { useDispatch } from 'react-redux';
+import { deleteBooking } from 'redux/actions/BookingAction';
 
 
 const BookCard = (props) => {
-    const doctor = props.doctor;
+    const dispatch = useDispatch();
+
+    const handleDelete = () => {
+        dispatch(deleteBooking(props.id));
+      };
+    
+
+    const doctor = props.doctor; 
     return (
         <Style>
 
-            <a>Lundi 17 mai</a>
-            <a>18h30</a>
+            <a>{props.date}</a>
+            <a>{props.time}</a>
             {doctor.gender == 'female' ?
                 <DoctorFemale className="profile-picture" /> :
                 <DoctorMale className="profile-picture" />}
-            <a className="title"> {props.title || "Dr. name surname"}</a>
-            <a className="card-text"> {props.job || "Médecin généraliste"}</a>
-            <a className="card-text" id="city"> {props.city || "Ville"}</a>
+            <a className="title"> Dr. {doctor.last_name} {doctor.first_name}</a>
+            <a className="card-text"> {doctor.title || "Médecin généraliste"}</a>
+            <a className="card-text" id="city"> {doctor.city || "Ville"}</a>
+            <a className="card-text" id="address"> {doctor.address || "Addresse"}</a>
             
 
-            <button className="btn-book">Annuler le rendez-vous</button>
+            <button className="btn-cancel" onClick={handleDelete}>Annuler le rendez-vous</button>
 
         </Style>
     )
@@ -56,10 +66,10 @@ const Style = styled.div`
         border-radius: 10px;
     }
 
-    .btn-book {
+    .btn-cancel {
         border-radius: 5px;
         margin: 20px;
-        background: #38b6b2;
+        background: #AC0025;
         color: white;
         font-weight: bold;
         border: none;

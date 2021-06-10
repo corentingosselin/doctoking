@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { RegisterAuthAction } from 'redux/actions/AuthActions';
 import { Link } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 
 
 const RegisterPage = (props) => {
@@ -133,6 +134,7 @@ const RegisterPage = (props) => {
 
         </div>
       </div>
+      <Toaster />
     </Style >
 
   )

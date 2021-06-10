@@ -15,36 +15,53 @@ const transporter = nodemailer.createTransport({
     port: 25,
     // We add this setting to tell nodemailer the host isn't secure during dev:
     ignoreTLS: true
-  });
-  
+});
+
 
 
 module.exports = {
     getBookingById: function (req, res) {
         return res.status(200).send(req.booking);
     },
-    async getBookingByPatientId(req, res) {
-
-        const booking = await Slot.findAll({
+    getBookingByPatientId(req, res) {
+        return Booking.findAll({
             where: {
                 patientId: req.userId
             },
             include: [
                 {
-                    as: 'Availability',
-                    model: models.Availability,
-                    required: true,
+                    attributes: ['slot'],
+                    model: models.Slot,
+                    as: 'Slot',
+                    include: [
+                        {
+                            model: models.Availability,
+                            as: 'Availability'
+                        }
+                    ]
+                },
+                {
+                    attributes: ['last_name', 'first_name','gender','city','address','phone'],
+                    model: models.User,
+                    as: 'doctorBooking',
                     where: {
-                        doctorId: req.body.doctorId,
-                    }
+                        role: 'doctor',
+                    },
+                    include: [
+                        {
+                            as: 'titles',
+                            attributes: ['name'],
+                            model: models.Title,
+                            through: { attributes: [] }
+                        }
+                    ]
                 }
             ]
-        });
-
-        const booking = Booking.findAll({
-            where: { patientId: req.userId }
         }).then((bookings) => { res.status(201).send(bookings) })
-            .catch((error) => res.status(500).send({ error: 'Please try this later' }));
+            .catch((error) => {
+                console.log(error);
+                res.status(500).send({ error: 'Please try this later' });
+            });
     },
     getBookingByDoctorId: function (req, res) {
         return Booking.findAll({
@@ -55,7 +72,7 @@ module.exports = {
     async deleteBookingById(req, res) {
         return Booking
             .destroy({
-                where: { patientId: req.params.id }
+                where: { id: req.params.id }
             })
             .then(async (booking) => {
 
@@ -79,7 +96,7 @@ module.exports = {
         //a user cannot be patient and doctor 
         if (req.body.patientId === req.body.doctorId) return res.status(405).send(error);
 
-    
+
 
         const user = await User.findByPk(req.userId);
         if (!user) return res.status(405).send(error);

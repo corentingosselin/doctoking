@@ -39,7 +39,6 @@ const authReducer = (state = newAuth, action) => {
             return newAuthState;
         case AuthActionType.LOGOUT_SUCCESS:
             localStorage.removeItem("auth");
-            
             return authState;
         case AuthActionType.LOGIN_SUCCESS:
             const loginAuthState = {

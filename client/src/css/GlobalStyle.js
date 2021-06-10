@@ -9,6 +9,10 @@ const GlobalStyle = createGlobalStyle`
         flex-direction: column;
     }
 
+    .flex {
+        display: flex;
+    }
+
     * {
         margin: 0;
         padding: 0;

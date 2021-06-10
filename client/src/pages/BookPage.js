@@ -1,12 +1,10 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import CalendarBookingSlot from '../components/CalendarBookingSlot'
 import { ReactComponent as DoctorMale } from '../imgs/doctor_male.svg';
 import { ReactComponent as DoctorFemale } from '../imgs/doctor_female.svg';
 
 const BookPage = (props) => {
-    console.log(props);
     const doctor = props.location.state.doctor;
     const job = doctor.titles[0].name;
     const jobUpperCase = job.charAt(0).toUpperCase() + job.slice(1);

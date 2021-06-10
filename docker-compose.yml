@@ -28,8 +28,8 @@ services:
       - "3306:3306"
     restart: always
     environment:
-      MYSQL_DATABASE: 'doctoking'
-      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_DATABASE: ${DB_USER}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
     expose:
       # Opens port 3306 on the container
       - '3306'
@@ -40,6 +40,23 @@ services:
     image: maildev/maildev
     ports:
       - "1080:80"
+  mysql-cron-backup:
+    image: fradelg/mysql-cron-backup
+    depends_on:
+      - mysql
+    volumes:
+      - ./backup:/backup
+    environment:
+      - MYSQL_HOST=${DB_HOST}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASS=${DB_PASSWORD}
+      - MAX_BACKUPS=15
+      - INIT_BACKUP=0
+      # Every day at 03:00
+      - CRON_TIME=0 3 * * *
+      # Make it small
+      - GZIP_LEVEL=9
+    restart: unless-stopped
 # Names our volume
 volumes:
   docto-db:

@@ -1,77 +1,158 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { LogoutAuthAction } from 'redux/actions/AuthActions';
 import styled from 'styled-components';
+import { ReactComponent as Male } from '../imgs/man.svg';
+import { ReactComponent as Female } from '../imgs/woman.svg';
 
 const AccountPage = (props) => {
     const { auth } = props;
+    const dispatch = useDispatch();
+    const clickHandler = () => {
+        dispatch(LogoutAuthAction())
+    };
+
     return (
         <Style>
             <h1 className="book-title">Mon compte</h1>
 
-            <div className="book">
-                <div className="doctor-profile">
-                    <h1 className="title"> {auth.user.last_name} {auth.user.first_name}</h1>
-                    <div className="info">
-                        <a> {auth.user.email}</a>
-                        <div className="coords">
-                            <a id="city"> {auth.user.city}</a>
-                            <a id="address"> {auth.user.address}</a>
+            <div className="doctor-profile">
+
+                <div className="flex info-element content">
+
+
+                    <div className="flex">
+                        <div className="flex-column info-element center">
+                            <h1 className="title"> {auth.user.last_name} {auth.user.first_name}</h1>
+                            {auth.user.gender == 'female' ?
+                                <Female className="profile-picture" /> :
+                                <Male className="profile-picture" />}
                         </div>
 
+                        <div className="info">
+
+                            <div className="info-element">
+                                <h3 className="subtitle"> Addresse email</h3>
+                                <a> {auth.user.email}</a>
+                            </div>
+
+
+                            <div className="info-element">
+                                <h3 className="subtitle"> Téléphone portable</h3>
+                                <a> {auth.user.phone}</a>
+                            </div>
+                            <div className="info-element flex-column" >
+                                <h3 className="subtitle"> Coordonnées</h3>
+                                <a id="city"> {auth.user.city}</a>
+                                <a id="address"> {auth.user.address}</a>
+                            </div>
+                        </div>
                     </div>
+
+
+                    <div className="buttons flex-column">
+                    <Link to="/books">
+                        <button className="btn" id="btn-bookings">Mes réservations</button>
+                        </Link>
+                
+                        <button className="btn" id="btn-cancel" onClick={clickHandler}>Déconnexion</button>
+
+                    </div>
+
                 </div>
             </div>
+
         </Style>
     )
 }
 
 const Style = styled.div`
 
-    text-align: center;
+display: flex;
+flex-direction: column;
+align-items: center;
+
+    .content {
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .center {
+        align-items: center;
+        text-align: center;
+    }
+
+    .subtitle {
+        color: black;
+        font-weight: normal;
+        font-size: 22px;
+    }
 
     .title {
-        margin: 30px;
         font-weight: normal;
+        padding-bottom: 20px;
+    }
+
+    .info-element {
+        margin: 10px;;
     }
 
     .info {
-        display:flex;
-        flex-direction: column;
-        padding-top: 20px;
+        padding-top: 50px;
         font-size: 20px;
             color: darkgrey;
 
     }
 
-
-    .coords {
-        display:flex;
-        flex-direction: column;
-        padding-top: 20px;
-
-    }
-
-
-
     .doctor-profile {
         display: flex;
         flex-direction: column;
         margin: 100px;
+        width: 50%;
+        height: auto;
+        min-width: 900px;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     }
 
     .book-title {
-        margin: 5%;
-
+        margin: 50px;
+        text-align: center;
     }
 
-    .book {
-        display: flex;
-        justify-content: space-around;
+    .profile-picture {
+        width: 200px;
+        height: auto;
+    }
 
+    .buttons {
+        margin: 10px;
     }
-    .profile {
-        margin: 30px;
-    }
+
+    .btn {
+        border-radius: 5px;
+        margin: 20px;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        color: white;
+        font-weight: bold;
+        border: none;
+        width: auto;
+        font-size: 20px;
+        height: auto;
+      }
+
+      #btn-bookings {
+        background: #38b6b2;
+
+      }
+
+      #btn-cancel {
+        background: #AC0025;
+      }
+
 `;
 
 const mapStateToProps = (state) => {
@@ -82,4 +163,4 @@ const mapStateToProps = (state) => {
 
 
 
-export default connect(mapStateToProps) (AccountPage);
+export default connect(mapStateToProps)(AccountPage);

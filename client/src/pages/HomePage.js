@@ -1,14 +1,14 @@
 import React from 'react';
+import { Toaster } from 'react-hot-toast';
 import styled from 'styled-components';
 import { ReactComponent as Logo } from '../imgs/logo.svg';
-import image from '../imgs/logo_test.png'; 
 
 const HomePage = () => {
 
     return (
         <Style>
-           
-            <img src={image} id="main-logo"/>
+            <Logo id="main-logo"/>
+            <Toaster />
         </Style>
     )
 }

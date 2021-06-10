@@ -4,6 +4,7 @@ import { LoginAuthAction } from 'redux/actions/AuthActions';
 import styled from 'styled-components';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 
 const LoginPage = (props) => {
 
@@ -62,6 +63,7 @@ const LoginPage = (props) => {
 
         </div>
       </div>
+      <Toaster />
     </Style>
 
   )

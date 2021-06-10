@@ -31,7 +31,9 @@ const Navbar = (props) => {
 
             {auth.isLoggedIn ? (
                 <React.Fragment>
-                    <button href="#">Mon compte</button>
+                    <Link className="link" to="/account">
+                        <button>Mon compte</button>
+                    </Link>
                 </React.Fragment>
 
             ) :

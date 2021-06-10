@@ -2,17 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ProfileCard from '../components/global/ProfileCard'
 import { useDispatch, useSelector } from "react-redux";
-
-import { library } from '@fortawesome/fontawesome-svg-core'
-import {
-    faSearch
-} from '@fortawesome/free-solid-svg-icons'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { loadDoctors } from 'redux/actions/DoctorSearchAction';
-library.add(
-    faSearch,
-)
 
 
 

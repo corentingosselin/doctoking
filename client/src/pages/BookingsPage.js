@@ -1,71 +1,51 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import BookCard from '../components/global/BookCard'
-import toast, { Toaster } from 'react-hot-toast';
-
-import { library } from '@fortawesome/fontawesome-svg-core'
-import {
-    faSearch
-} from '@fortawesome/free-solid-svg-icons'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import axios from 'axios';
-library.add(
-    faSearch,
-);
+import { Toaster } from 'react-hot-toast';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadBooked } from 'redux/actions/BookingAction';
 
 
-const notify = () => toast.success('Here is your toast.');
 
 const BookingsPage = (props) => {
 
-
+    const  books = useSelector((state) => state.books);
     //fetch my bookings
-
-    // <BookCard />
-
-    const [bookings, setBookings] = useState([])
+    const dispatch = useDispatch();
     useEffect(() => {
-        axios.get(`/patient/bookings/`)
-            .then(response => {
-                setBookings(response.data)
-            })
-    }, [])
-
-    //doctor infos
-    //date et heure
-    // booking id (to cancel)
-
-
+        dispatch(loadBooked());
+    }, [dispatch]);
+    //Get that data back
+   
     return (
         <Style>
-
-
             <h1>Vos rendez-vous</h1>
+            <Results>
+                {books.map(booking => <BookCard
+                    key={booking.id}
+                    doctor={booking.doctor}
+                    time={booking.time}
+                    date={booking.date}
+                    id={booking.id}
+                >{booking.id}</BookCard>)}
+            </Results>
+            <Toaster />
 
-            <div className="results">
-
-                {bookings.length ? (
-                 
-                        {bookings.map((doctor) => (
-                            <ProfileCard
-                                doctor={doctor}
-                                key={doctor.id}
-                            />
-                        ))}
-                   
-
-                ) : (
-                    ""
-                )}
-                <Toaster />
-            </div>
-        </Style>
+        </Style >
 
     )
 }
 
 
+const Results = styled.div`
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 150px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+`;
 
 const Style = styled.div`
 
@@ -85,17 +65,7 @@ const Style = styled.div`
         height: 63px;
         margin-bottom: 10px;
       }
-      
-
-      .results {
-          padding-top: 100px;
-          margin-left: 50px;
-          margin-right: 50px;
-          display: flex;
-          flex-wrap: wrap;
-          align-items: center;
-          justify-content: center;
-      }
+    
 `;
 
 export default BookingsPage;
