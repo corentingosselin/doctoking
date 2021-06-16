@@ -6,9 +6,12 @@ import { connect } from 'react-redux';
 import { RegisterAuthAction } from 'redux/actions/AuthActions';
 import { Link } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import axios from 'axios';
 
 
 const RegisterPage = (props) => {
+
+  const role = props.role;
 
   const { user, register } = props;
   const [userState, setUserState] = useState({
@@ -20,10 +23,20 @@ const RegisterPage = (props) => {
     message: ''
   });
 
+  const [titles, setTitles] = useState([]);
+  useEffect(() => {
+    if (role === "doctor") {
+      axios.get('/doctor/titles').then(response => {
+        setTitles(response.data);
+      });
+    }
+  }, []);
+
   function handleRegister(e) {
     e.preventDefault();
+    setErrorHandler({ hasError: false, message: "" });
     // @ts-ignore
-    register(userState, history, setErrorHandler)
+    register(userState, history, role, setErrorHandler)
   }
 
   return (
@@ -116,11 +129,33 @@ const RegisterPage = (props) => {
                       const confirm_password = event.target.value;
                       setUserState({ ...userState, ...{ confirm_password } });
                     }} />
+
                   </div>
+
                 </div>
+
               </div>
+
             </form>
           </div>
+
+          {
+            role === 'doctor' &&
+            <div className="doctor-title flex-column">
+              <label>Titre</label>
+              <select name="Titre"
+                onChange={(event) => {
+                  const title = event.target.value;
+                  setUserState({ ...userState, ...{ title } });
+                }} >
+
+                {titles.map((title) => (
+                  <option key={title.id} value={title.id}>{title.name}</option>
+                ))}
+              </select>
+            </div>
+          }
+
 
           {
             errorHandler.hasError &&
@@ -164,6 +199,10 @@ const Style = styled.div`
         text-align: center;
       }
 
+      .doctor-title {
+        margin-bottom: 30px;
+      }
+
       .card {
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
         transition: 0.3s;
@@ -191,11 +230,7 @@ const Style = styled.div`
         align-items:center;
       }
 
-      
-
-      .authentification {
-        margin: 30px;
-      }
+    
 
       form {
         display: flex;
@@ -226,8 +261,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    register: (userState, history, setErrorHandler) => {
-      dispatch(RegisterAuthAction(userState, history, setErrorHandler));
+    register: (userState, history, role, setErrorHandler) => {
+      dispatch(RegisterAuthAction(userState, history, role, setErrorHandler));
     }
   };
 };

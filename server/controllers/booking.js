@@ -41,7 +41,7 @@ module.exports = {
                     ]
                 },
                 {
-                    attributes: ['last_name', 'first_name','gender','city','address','phone'],
+                    attributes: ['last_name', 'first_name', 'gender', 'city', 'address', 'phone'],
                     model: models.User,
                     as: 'doctorBooking',
                     where: {
@@ -63,11 +63,37 @@ module.exports = {
                 res.status(500).send({ error: 'Please try this later' });
             });
     },
-    getBookingByDoctorId: function (req, res) {
+    getBookingByDoctorId(req, res) {
         return Booking.findAll({
-            where: { doctorId: req.userId }
+            where: {
+                doctorId: req.userId
+            },
+            include: [
+                {
+                    attributes: ['slot'],
+                    model: models.Slot,
+                    as: 'Slot',
+                    include: [
+                        {
+                            model: models.Availability,
+                            as: 'Availability'
+                        }
+                    ]
+                },
+                {
+                    attributes: ['last_name', 'first_name', 'gender', 'city', 'address', 'phone'],
+                    model: models.User,
+                    as: 'patientBooking',
+                    where: {
+                        role: 'patient',
+                    }
+                }
+            ]
         }).then((bookings) => { res.status(201).send(bookings) })
-            .catch((error) => res.status(500).send({ error: 'Please try this later' }));
+            .catch((error) => {
+                console.log(error);
+                res.status(500).send({ error: 'Please try this later' });
+            });
     },
     async deleteBookingById(req, res) {
         return Booking
@@ -96,8 +122,6 @@ module.exports = {
         //a user cannot be patient and doctor 
         if (req.body.patientId === req.body.doctorId) return res.status(405).send(error);
 
-
-
         const user = await User.findByPk(req.userId);
         if (!user) return res.status(405).send(error);
 
@@ -113,7 +137,6 @@ module.exports = {
             if (!User.findByPk(req.body.doctorId)) return res.status(404).send({ error: 'Doctor not found' });
         }
         const bookingDate = new Date(req.body.start);
-        const dayId = bookingDate.getDay();
         //change response with Invalid Request Error later
         if (!bookingDate) return res.status(400).send({ error: 'Invalid Date Request' });
         const slotValid = await Slot.findAll({
@@ -136,13 +159,37 @@ module.exports = {
         const existingBooking = await Booking.findOne({
             where: {
                 slotId: req.body.slotId,
+                //slot: req.body.slot,
                 start: bookingDate
             }
         });
+
+
         //change response with Invalid Request Error later
         if (existingBooking !== null) {
             return res.status(400).send({ error: 'Doctor not available for this date and time' });
         }
+
+        const existingBookingOther = await Booking.findOne({
+            where: {
+                patientId: user.id,
+                start: bookingDate
+            }, include: [
+                {
+                    as: 'Slot',
+                    model: models.Slot,
+                    required: true,
+                    where: {
+                        slot: req.body.slot,
+                    }
+                }
+            ]
+        });
+
+        if (existingBookingOther !== null) {
+            return res.status(400).send({ error: 'Vous avez déjà un rendez-vous à cette date et horaire' });
+        }
+
 
 
         return Booking
@@ -161,7 +208,41 @@ module.exports = {
                     subject: "Your booking is confirmed ✔", // Subject line
                     text: "Date " + booking.start + " \n lol", // plain text body
                 });
-                res.status(201).send(booking);
+
+                const doctor = await User.findByPk(req.body.doctorId);
+                const doctorTitles = await models.DoctorTitle.findOne({ where: { doctorId: req.body.doctorId } });
+
+                const title = await models.Title.findByPk(doctorTitles.titleId);
+                const slot = await Slot.findByPk(req.body.slotId);
+                const availability = await models.Availability.findByPk(slot.availabilityId);
+
+
+                const date = new Date(booking.start + " " + availability.time_start);
+                let totalMinutes = date.getHours() * 60 + date.getMinutes();
+                totalMinutes += (slot.slot) * 30;
+                let hours = Math.floor(totalMinutes / 60);
+                let minutes = totalMinutes % 60;
+                if (hours < 10) { hours = "0" + hours; }
+                if (minutes < 10) { minutes = "0" + minutes; }
+                const time = (hours + ':' + minutes + ':00').slice(0, -3);
+
+                const response = {
+                    id: booking.id,
+                    doctor: {
+                        last_name: doctor.last_name,
+                        first_name: doctor.first_name,
+                        city: doctor.city,
+                        address: doctor.address,
+                        phone: doctor.phone,
+                        gender: doctor.gender,
+                        title: title.name
+                    },
+                    date: new Date(booking.start).toLocaleDateString(),
+                    time: time
+                };
+                console.log(response);
+
+                res.status(201).send(response);
             }).catch((error) => {
                 console.log(error);
                 res.status(400).send({ error: 'Invalid Booking Request' })

@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import { ReactComponent as DoctorMale } from '../imgs/doctor_male.svg';
 import { ReactComponent as DoctorFemale } from '../imgs/doctor_female.svg';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { createBook } from 'redux/actions/BookingAction';
 
 const ConfirmBookPage = (props) => {
 
@@ -14,18 +15,22 @@ const ConfirmBookPage = (props) => {
     const book = props.location.state.book;
     const job = doctor.titles[0].name;
     const jobUpperCase = job.charAt(0).toUpperCase() + job.slice(1);
+    const dispatch = useDispatch()
 
     const [body, setBody] = useState(
         {
             start: book.date,
             slotId: book.id,
+            slot: book.slot,
             patientId:  auth.user.id,
             description: '',
             doctorId: doctor.id
         });
 
-    const submitHandler = () => {
-        axios.post('/booking', body);
+    const submitHandler = (e) => {
+        e.preventDefault();
+        dispatch(createBook(body));
+        //axios.post('/booking', body);
         history.push('/books');
     }
 

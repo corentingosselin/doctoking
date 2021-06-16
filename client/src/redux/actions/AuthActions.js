@@ -11,10 +11,16 @@ const AuthActionType = {
     LOGIN_FAIL: "LOGIN_FAIL"
 };
 
-const RegisterAuthAction = (userState, history, setErrorHandler) => {
+const RegisterAuthAction = (userState, history, role, setErrorHandler) => {
     return async (dispatch) => {
         try {
-            const res = await axios.post("/auth/patient/register", userState);
+            let res;
+            if (role === "patient")
+                res = await axios.post("/auth/patient/register", userState);
+            else if (role === "doctor")
+                res = await axios.post("/auth/doctor/register", userState);
+
+
             const { data } = res;
             dispatch({ type: AuthActionType.REGISTER_SUCCESS, payload: data });
             toast.success('Création du compte terminée !');
@@ -22,7 +28,7 @@ const RegisterAuthAction = (userState, history, setErrorHandler) => {
         } catch (error) {
             if (error.response) {
                 dispatch({ type: AuthActionType.REGISTER_FAIL, payload: error.response.data.message });
-                setErrorHandler({hasError:true, message: error.response.data.message});
+                setErrorHandler({ hasError: true, message: error.response.data.message });
                 toast.error("Erreur lors de la création de votre compte");
             }
         }
@@ -53,7 +59,7 @@ const LoginAuthAction = (userState, history, setErrorHandler) => {
                 });
                 toast.success(error.response.data.message);
 
-                setErrorHandler({hasError:true, message: error.response.data.message});
+                setErrorHandler({ hasError: true, message: error.response.data.message });
             }
         }
     }

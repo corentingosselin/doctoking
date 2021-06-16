@@ -9,7 +9,6 @@ import {
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { connect } from 'react-redux';
-import { LogoutAuthAction } from 'redux/actions/AuthActions';
 import { Link } from 'react-router-dom';
 library.add(
     faSearch,
@@ -23,11 +22,14 @@ const Navbar = (props) => {
             <Link className="link" to="/">
                 <Logo id="logo" />
             </Link>
-            <ul>
-                <li>
-                    <Link className="link" id="go-search" to="/search"> <FontAwesomeIcon icon={faSearch} size="1x" /> Rechercher un médecin</Link>
-                </li>
-            </ul>
+
+            {auth.user.role === 'patient' || !auth.isLoggedIn &&
+                <ul>
+                    <li>
+                        <Link className="link" id="go-search" to="/search"> <FontAwesomeIcon icon={faSearch} size="1x" /> Rechercher un médecin</Link>
+                    </li>
+                </ul>
+            }
 
             {auth.isLoggedIn ? (
                 <React.Fragment>

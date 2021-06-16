@@ -3,17 +3,17 @@ import styled from 'styled-components';
 import BookCard from '../components/global/BookCard'
 import { Toaster } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadBooked } from 'redux/actions/BookingAction';
+import { loadBooked, loadDoctorBookings } from 'redux/actions/BookingAction';
 
 
 
-const BookingsPage = (props) => {
+const BookingsDoctorPage = (props) => {
 
     const books = useSelector((state) => state.books);
     //fetch my bookings
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(loadBooked());
+        dispatch(loadDoctorBookings());
     }, [dispatch]);
     //Get that data back
    
@@ -25,10 +25,10 @@ const BookingsPage = (props) => {
             <Results>
                 {books.map(booking => <BookCard
                     key={booking.id}
-                    user={booking.doctor}
+                    user={booking.patient}
                     time={booking.time}
                     date={booking.date}
-                    role="doctor"
+                    role='patient'
                     id={booking.id}
                 >{booking.id}</BookCard>)}
             </Results>
@@ -71,4 +71,4 @@ const Style = styled.div`
     
 `;
 
-export default BookingsPage;
+export default BookingsDoctorPage;

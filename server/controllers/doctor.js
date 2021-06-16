@@ -1,5 +1,7 @@
 const User = require('../models').User;
 const Slot = require('../models').Slot;
+const Title = require('../models').Title;
+
 
 const models = require('../models');
 const Sequelize = require('sequelize');
@@ -86,6 +88,14 @@ module.exports = {
                 res.status(400).send({ error: 'Invalid Doctor Request' });
                 throw error;
             });
+    },
+
+    getTitles(req, res) {
+        return Title.findAll(
+            {
+                attributes: ['id', 'name']
+            }
+        ).then((titles) => res.status(200).send(titles));
     }
 
 };

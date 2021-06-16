@@ -25,6 +25,7 @@ import NotFoundPage from 'pages/NotFoundPage';
 import BookPage from 'pages/BookPage';
 import ConfirmBookPage from 'pages/ConfirmBookPage';
 import BookingsPage from 'pages/BookingsPage';
+import BookingsDoctorPage from 'pages/BookingsDoctorPage';
 
 function App(props) {
   const { auth, logout } = props;
@@ -43,8 +44,13 @@ function App(props) {
             {auth.isLoggedIn ? <Redirect to="/" /> : <RegisterPage />}
           </Route>
 
+          <Route path="/register-doctor">
+            {auth.isLoggedIn ? <Redirect to="/" /> : <RegisterPage role="doctor" />}
+          </Route>
+
           <Route exact path="/doctor/:id" component={BookPage} />
           <Route path="/book" component={RequireAuth(ConfirmBookPage)}/>
+          <Route path="/books-doctor" component={RequireAuth(BookingsDoctorPage)}/>
           <Route path="/books" component={RequireAuth(BookingsPage)}/>
           <Route path="/search" component={SearchDoctorPage}/>
           <Route path="/account" component={RequireAuth(AccountPage)}/>

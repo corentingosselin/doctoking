@@ -4,7 +4,7 @@ const bookingReducer = (books = [], action) => {
         case "FETCH_BOOKS":
             return action.payload.books;
         case "ADD_BOOK":
-            return [action.book, ...books];
+            return [action.newBook, ...books];
         case "CANCEL_BOOKING":
             //toast here
             console.log(action);

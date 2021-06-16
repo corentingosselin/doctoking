@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const bookingController = require('../controllers/booking');
 const doctorController = require('../controllers/doctor');
+const botController = require('../controllers/bot');
+
 
 const auth = require('../middlewares/auth');
 const role = require('../middlewares/role');
@@ -18,6 +20,6 @@ router.get('/search/:page', doctorController.getDoctors);
 //get availabilities
 router.get('/availabilities/:doctorId', doctorController.getAvailabilities);
 
-
+router.get('/speciality', botController.findDoctorType);
 
 module.exports = router;

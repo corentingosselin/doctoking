@@ -104,7 +104,7 @@ const CalendarBookingSlot = (props) => {
                                     return (
                                         <Link key={a.id} to={{
                                             pathname: `/book`,
-                                            state: { doctor: props.doctor, book: { id: a.id, date: currentDate, time: time, day: day + " " + displayDay } }
+                                            state: { doctor: props.doctor, book: { id: a.id,slot: a.slot, date: currentDate, time: time, day: day + " " + displayDay } }
                                         }}>
                                             <button className="slot" id={a.id} >{time}</button>
                                         </Link>

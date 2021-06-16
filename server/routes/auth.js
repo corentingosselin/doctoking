@@ -7,8 +7,8 @@ const role = require('../middlewares/role');
 // patients
 router.post('/patient/register', authController.registerPatient);
 
-//doctors,  only authenticated admins can create doctor
-router.post('/doctor/register',auth, role.checkRole(['admin']), authController.registerDoctor);
+//doctors,  only authenticated admins should be able to create doctor
+router.post('/doctor/register', authController.registerDoctor);
 
 
 router.post('/login', authController.login);

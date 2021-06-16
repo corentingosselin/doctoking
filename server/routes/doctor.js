@@ -11,5 +11,7 @@ const role = require('../middlewares/role');
 // get bookings your own if your are doctor 
 router.get('/bookings', auth, role.checkRole(['doctor']), bookingController.getBookingByDoctorId);
 
+router.get('/titles', doctorController.getTitles);
+
 
 module.exports = router;
