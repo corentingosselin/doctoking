@@ -5,6 +5,24 @@ import { LogoutAuthAction } from 'redux/actions/AuthActions';
 import styled from 'styled-components';
 import { ReactComponent as Male } from '../imgs/man.svg';
 import { ReactComponent as Female } from '../imgs/woman.svg';
+import { ReactComponent as DoctorMale } from '../imgs/doctor_male.svg';
+import { ReactComponent as DoctorFemale } from '../imgs/doctor_female.svg';
+
+
+const ProfilePicture = (props) => {
+    if (props.gender == 'female') {
+        if (props.role == 'doctor')
+            return <DoctorFemale className="profile-picture" />;
+        else if (props.role == 'patient')
+            return <Female className="profile-picture" />;
+    } else {
+        if (props.role == 'doctor')
+            return <DoctorMale className="profile-picture" />;
+        else if (props.role == 'patient')
+            return <Male className="profile-picture" />;
+    }
+};
+
 
 const AccountPage = (props) => {
     const { auth } = props;
@@ -25,9 +43,7 @@ const AccountPage = (props) => {
                     <div className="flex">
                         <div className="flex-column info-element center">
                             <h1 className="title"> {auth.user.last_name} {auth.user.first_name}</h1>
-                            {auth.user.gender == 'female' ?
-                                <Female className="profile-picture" /> :
-                                <Male className="profile-picture" />}
+                            <ProfilePicture role={auth.user.role} gender={auth.user.gender}/>
                         </div>
 
                         <div className="info">
@@ -52,10 +68,11 @@ const AccountPage = (props) => {
 
 
                     <div className="buttons flex-column">
-                    <Link to="/books">
-                        <button className="btn" id="btn-bookings">Mes réservations</button>
+                        
+                        <Link to={auth.user.role === 'patient' ? "/books" : '/books-doctor'}>
+                            <button className="btn" id="btn-bookings">Mes réservations</button>
                         </Link>
-                
+
                         <button className="btn" id="btn-cancel" onClick={clickHandler}>Déconnexion</button>
 
                     </div>

@@ -40,7 +40,7 @@ const BookCard = (props) => {
             <ProfilePicture role={props.role} gender={user.gender} />
             <a className="title"> {props.role == 'doctor' ? 'Dr.' : ''} {user.last_name} {user.first_name}</a>
             {props.role == 'doctor' &&
-                <a className="card-text"> {user.title || "Médecin généraliste"}</a>}
+            <a className="card-text"> {user.title || "Médecin généraliste"}</a>}
             <a className="card-text" id="city"> {user.city || "Ville"}</a>
             <a className="card-text" id="address"> {user.address || "Addresse"}</a>
 

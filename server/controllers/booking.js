@@ -105,8 +105,8 @@ module.exports = {
                 transporter.sendMail({
                     from: '"doctoking 👑" <no-reply@doctoking.com>',
                     to: req.user.email,
-                    subject: "Booking cancel confirmation ✔", // Subject line
-                    text: "Date " + booking.start + " \n lol", // plain text body
+                    subject: "Confirmation d'annulation ✔", // Subject line
+                    text: "Votre rendez-vous en date du " + booking.start + " \n a bien été annulé", // plain text body
                 });
 
                 return res.status(200).send({ message: 'Booking is cancelled' });
@@ -205,8 +205,8 @@ module.exports = {
                 await transporter.sendMail({
                     from: '"doctoking 👑" <no-reply@doctoking.com>',
                     to: user.email,
-                    subject: "Your booking is confirmed ✔", // Subject line
-                    text: "Date " + booking.start + " \n lol", // plain text body
+                    subject: "Confirmation du rendez-vous ✔", // Subject line
+                    text: "Votre rendez-vous en date du " + booking.start + " \n est confirmé", // plain text body
                 });
 
                 const doctor = await User.findByPk(req.body.doctorId);

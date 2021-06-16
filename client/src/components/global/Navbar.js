@@ -23,7 +23,7 @@ const Navbar = (props) => {
                 <Logo id="logo" />
             </Link>
 
-            {auth.user.role === 'patient' || !auth.isLoggedIn &&
+            {(auth.user.role === 'patient' || !auth.isLoggedIn) &&
                 <ul>
                     <li>
                         <Link className="link" id="go-search" to="/search"> <FontAwesomeIcon icon={faSearch} size="1x" /> Rechercher un médecin</Link>
